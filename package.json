@@ -5,8 +5,7 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node app.js",
-    "dev": "nodemon app.js"
+    "start": "node app.js"
   },
   "author": "",
   "license": "ISC",
@@ -26,11 +25,5 @@
     "swagger-ui-express": "^5.0.0",
     "xss-clean": "^0.1.4",
     "yamljs": "^0.3.0"
-  },
-  "devDependencies": {
-    "dotenv": "^16.3.1"
-  },
-  "engines": {
-    "node": "18.x"
   }
 }
