@@ -33,7 +33,8 @@ const updateUser = async (req, res) => {
     body: { name, email },
     user: { userID },
   } = req
-  if (name === '' || email === '') {
+ 
+  if (!name  || !email) {
     throw new BadRequestError(`Email and password cannot be empty fields`)
   }
   const user = await User.findOne({ _id: userID })
