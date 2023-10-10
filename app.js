@@ -4,6 +4,10 @@ require('express-async-errors')
 const cors = require('cors')
 const helmet = require('helmet')
 const xss = require('xss-clean')
+// swagger
+const swaggerUI = require('swagger-ui-express')
+const YAML = require('yamljs')
+const swaggerDocument = YAML.load('./swagger.yaml')
 const express = require('express')
 const app = express()
 const connectDB = require('./db/connect')
@@ -34,8 +38,11 @@ app.use(express.json())
 // file upload
 app.use(fileUpload({ useTempFiles: true }))
 
-// static resources
-app.use(express.static('./public'))
+// homepage
+app.get('/', (req, res) => {
+  res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>')
+})
+app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 // routes
 app.use('/api/v1/products/auth', authRoutes)
 app.use('/api/v1/products', authMiddleware, productRoutes)

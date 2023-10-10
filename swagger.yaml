@@ -1,0 +1,308 @@
+openapi: 3.0.0
+info:
+  title: products-api
+  contact: {}
+  version: '1.0'
+servers:
+- url: https://store-products-api-dkcp.onrender.com/api/v1
+  variables: {}
+paths:
+  /products/auth/register:
+    post:
+      tags:
+      - auth
+      summary: Register user
+      operationId: Registeruser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/RegisteruserRequest'
+              - example:
+                  name: rac
+                  email: rac@gmail.com
+                  password: secret
+            example:
+              name: rac
+              email: rac@gmail.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /products/auth/login:
+    post:
+      tags:
+      - auth
+      summary: User login
+      operationId: Userlogin
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UserloginRequest'
+              - example:
+                  email: rachh@yahoo.com
+                  password: secret
+            example:
+              email: rachh@yahoo.com
+              password: secret
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+      security: []
+  /products/auth/updateUser:
+    patch:
+      tags:
+      - auth
+      summary: Update user
+      operationId: Updateuser
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateuserRequest'
+              - example:
+                  name: rachel
+                  email: rachh@yahoo.com
+            example:
+              name: rachel
+              email: rachh@yahoo.com
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /products:
+    get:
+      tags:
+      - products
+      summary: Get all products
+      operationId: Getallproducts
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    post:
+      tags:
+      - products
+      summary: Create product
+      operationId: Createproduct
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/CreateproductRequest'
+              - example:
+                  name: product 5
+                  price: 1000
+                  image: https://res.cloudinary.com/dndkcthlm/image/upload/v1696857173/product-images/tmp-1-1696857173266.jpg
+            example:
+              name: product 5
+              price: 1000
+              image: https://res.cloudinary.com/dndkcthlm/image/upload/v1696857173/product-images/tmp-1-1696857173266.jpg
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /products/{id}:
+    parameters:
+      - in: path
+        name: id
+        schema:
+          type: string
+        required: true
+        description: The product ID
+    patch:
+      tags:
+      - products
+      summary: Update Product
+      operationId: UpdateProduct
+      parameters: []
+      requestBody:
+        description: ''
+        content:
+          application/json:
+            schema:
+              allOf:
+              - $ref: '#/components/schemas/UpdateProductRequest'
+              - example:
+                  name: product 50
+                  price: 50
+                  image: '123'
+            example:
+              name: product 50
+              price: 50
+              image: '123'
+        required: true
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    get:
+      tags:
+      - products
+      summary: Get single product
+      operationId: Getsingleproduct
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+    delete:
+      tags:
+      - products
+      summary: Delete product
+      operationId: Deleteproduct
+      parameters: []
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+  /products/uploads:
+    post:
+      tags:
+      - upload
+      summary: Upload product image
+      operationId: Uploadproductimage
+      parameters: []
+      requestBody:
+        content:
+          multipart/form-data:
+            encoding: {}
+            schema:
+              required:
+              - image
+              type: object
+              properties:
+                image:
+                  type: string
+                  format: binary
+        required: false
+      responses:
+        '200':
+          description: ''
+          headers: {}
+      deprecated: false
+components:
+  schemas:
+    RegisteruserRequest:
+      title: RegisteruserRequest
+      required:
+      - name
+      - email
+      - password
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        name: rac
+        email: rac@gmail.com
+        password: secret
+    UserloginRequest:
+      title: UserloginRequest
+      required:
+      - email
+      - password
+      type: object
+      properties:
+        email:
+          type: string
+        password:
+          type: string
+      example:
+        email: rachh@yahoo.com
+        password: secret
+    UpdateuserRequest:
+      title: UpdateuserRequest
+      required:
+      - name
+      - email
+      type: object
+      properties:
+        name:
+          type: string
+        email:
+          type: string
+      example:
+        name: rachel
+        email: rachh@yahoo.com
+    CreateproductRequest:
+      title: CreateproductRequest
+      required:
+      - name
+      - price
+      - image
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        image:
+          type: string
+      example:
+        name: product 5
+        price: 1000
+        image: https://res.cloudinary.com/dndkcthlm/image/upload/v1696857173/product-images/tmp-1-1696857173266.jpg
+    UpdateProductRequest:
+      title: UpdateProductRequest
+      required:
+      - name
+      - price
+      - image
+      type: object
+      properties:
+        name:
+          type: string
+        price:
+          type: integer
+          format: int32
+        image:
+          type: string
+      example:
+        name: product 50
+        price: 50
+        image: '123'
+  securitySchemes:
+    bearer:
+      type: http
+      scheme: bearer
+security:
+- bearer: []
+tags:
+- name: auth
+- name: products
+- name: upload
