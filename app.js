@@ -38,10 +38,8 @@ app.use(express.json())
 // file upload
 app.use(fileUpload({ useTempFiles: true }))
 
-// homepage
-app.get('/', (req, res) => {
-  res.send('<h1>Jobs API</h1><a href="/api-docs">Documentation</a>')
-})
+// static files
+app.use(express.static('./public'))
 app.use('/api-docs', swaggerUI.serve, swaggerUI.setup(swaggerDocument))
 // routes
 app.use('/api/v1/products/auth', authRoutes)
